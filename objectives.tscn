@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn701six60kve"]
+
+[ext_resource type="Theme" uid="uid://c23xnxlf53rgf" path="res://MenuTheme.tres" id="1_2l5kn"]
+[ext_resource type="Script" path="res://MainMenu.gd" id="2_ow3oo"]
+[ext_resource type="Texture2D" uid="uid://dtqqk5lqf8twn" path="res://art/box_button.png" id="2_r58tq"]
+[ext_resource type="Texture2D" uid="uid://d3m1lf5cexjdq" path="res://art/main_menu.png" id="3_wrjl0"]
+
+[node name="Objectives" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_2l5kn")
+script = ExtResource("2_ow3oo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.635294, 0.635294, 0.635294, 1)
+texture_filter = 1
+position = Vector2(960, 544)
+scale = Vector2(15, 15)
+texture = ExtResource("3_wrjl0")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 480.0
+offset_top = 408.0
+offset_right = 752.0
+offset_bottom = 427.0
+rotation = -0.261799
+scale = Vector2(3.61692, 4.39546)
+text = "Marty the Mailman"
+
+[node name="start" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 720.0
+offset_top = 528.0
+offset_right = 1208.0
+offset_bottom = 776.0
+focus_neighbor_bottom = NodePath("../quit")
+focus_next = NodePath("../quit")
+focus_previous = NodePath("../quit")
+theme = ExtResource("1_2l5kn")
+theme_override_font_sizes/font_size = 37
+text = "Start Game
+"
+icon = ExtResource("2_r58tq")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="quit" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 816.0
+offset_top = 808.0
+offset_right = 1104.0
+offset_bottom = 960.0
+focus_neighbor_top = NodePath("../start")
+focus_next = NodePath("../start")
+focus_previous = NodePath(".")
+theme = ExtResource("1_2l5kn")
+theme_override_font_sizes/font_size = 23
+text = "Quit"
+icon = ExtResource("2_r58tq")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1512.0
+offset_top = 824.0
+offset_right = 1712.0
+offset_bottom = 968.0
+text = "Level Select"
+icon = ExtResource("2_r58tq")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

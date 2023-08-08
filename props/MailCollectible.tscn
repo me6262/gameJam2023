@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://dd0cj8qd36x7u"]
+
+[ext_resource type="Texture2D" uid="uid://b0g5idkk7epa1" path="res://art/mail.png" id="1_ef18t"]
+[ext_resource type="Script" path="res://props/MailCollectible.gd" id="1_g68h8"]
+[ext_resource type="AudioStream" uid="uid://bhg01veku1gat" path="res://sounds/collect.wav" id="3_gwnpi"]
+
+[sub_resource type="Curve2D" id="Curve2D_4f2tq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -20, 0, 0, 0, 0, 0, 19, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fmhyo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -8, 6.99382e-07, -12.4079, -0.280933, 12.4079, 0.280933, 0, 8, 0, 0, 0, 0, 8, -6.99382e-07)
+}
+point_count = 3
+
+[sub_resource type="Animation" id="Animation_4sopv"]
+resource_name = "bob"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D2/PathFollow2D/Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, 2),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D2/PathFollow2D:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hdov5"]
+_data = {
+"bob": SubResource("Animation_4sopv")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wp7hb"]
+size = Vector2(56, 40)
+
+[node name="Collectible" type="Node2D"]
+script = ExtResource("1_g68h8")
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_4f2tq")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
+position = Vector2(-8.61111, 0)
+progress = 11.4152
+
+[node name="Path2D" type="Path2D" parent="Path2D2/PathFollow2D"]
+rotation = -3.14159
+curve = SubResource("Curve2D_fmhyo")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2/PathFollow2D/Path2D"]
+position = Vector2(-5.73662, 7.08407)
+rotation = 1.10715
+progress = 8.31873
+rotates = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D2/PathFollow2D/Path2D/PathFollow2D"]
+texture_filter = 1
+rotation = -4.24988
+texture = ExtResource("1_ef18t")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hdov5")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-4, -12)
+shape = SubResource("RectangleShape2D_wp7hb")
+
+[node name="collect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gwnpi")
+volume_db = 0.24

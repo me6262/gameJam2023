@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmkdbrnjkkpfk"]
+
+[ext_resource type="Script" path="res://script_templates/Level/LevelOne.gd" id="1_w3hlt"]
+
+[node name="Node2D" type="Node2D" groups=["Level"]]
+script = ExtResource("1_w3hlt")
+starting_mail = 2

@@ -1,0 +1,265 @@
+[gd_scene load_steps=23 format=3 uid="uid://cdyyx6gravwr"]
+
+[ext_resource type="Script" path="res://player/CharacterBody2D.gd" id="1_moka1"]
+[ext_resource type="Texture2D" uid="uid://76ehs3aled0a" path="res://icon.svg" id="2_70xwk"]
+[ext_resource type="Script" path="res://player/GunPoint.gd" id="3_ilkju"]
+[ext_resource type="PackedScene" uid="uid://b71f2qoxyjs8e" path="res://guns/mail_throw.tscn" id="6_1ouyq"]
+[ext_resource type="Script" path="res://player/UI.gd" id="6_4gh4i"]
+[ext_resource type="Texture2D" uid="uid://cyphbw4f28fcq" path="res://art/mail_count.png" id="6_7w7k8"]
+[ext_resource type="Texture2D" uid="uid://damgbhfjgi1p2" path="res://art/mailman.png" id="6_x4y8s"]
+[ext_resource type="AudioStream" uid="uid://pwald3tfeh1c" path="res://sounds/jump.wav" id="8_3uycc"]
+[ext_resource type="AudioStream" uid="uid://c3ppesfc6c35u" path="res://sounds/land.wav" id="9_7g3q1"]
+[ext_resource type="Script" path="res://guns/tracer.gd" id="10_vcg78"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0aflp"]
+size = Vector2(20, 28)
+
+[sub_resource type="Gradient" id="Gradient_d7prg"]
+offsets = PackedFloat32Array(0, 0.481481, 0.985185)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0.593985, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5cvla"]
+gradient = SubResource("Gradient_d7prg")
+
+[sub_resource type="Curve" id="Curve_ufeiy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.927711, 0.918182), -0.198565, -0.198565, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gdcvp"]
+curve = SubResource("Curve_ufeiy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_56l8x"]
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 31.58
+damping_max = 100.0
+scale_min = 0.13
+scale_max = 0.13
+scale_curve = SubResource("CurveTexture_gdcvp")
+color_ramp = SubResource("GradientTexture1D_5cvla")
+
+[sub_resource type="Animation" id="Animation_8h5mu"]
+resource_name = "fall"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_m4wjf"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_faryb"]
+resource_name = "jump_up"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_d2eot"]
+resource_name = "surprise"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_yb5cx"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dtsoq"]
+_data = {
+"fall": SubResource("Animation_8h5mu"),
+"idle": SubResource("Animation_m4wjf"),
+"jump_up": SubResource("Animation_faryb"),
+"surprise": SubResource("Animation_d2eot"),
+"walk": SubResource("Animation_yb5cx")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+top_level = true
+script = ExtResource("1_moka1")
+metadata/_edit_horizontal_guides_ = [-64.0]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 2)
+shape = SubResource("RectangleShape2D_0aflp")
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["Camera"]]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_vertical_offset = -0.32
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="DashParticles" type="GPUParticles2D" parent="."]
+z_index = -1
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_56l8x")
+texture = ExtResource("2_70xwk")
+lifetime = 0.15
+
+[node name="GunPoint" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("3_ilkju")
+player = NodePath("..")
+
+[node name="MailThrow" parent="GunPoint" node_paths=PackedStringArray("player") groups=["mailThrower"] instance=ExtResource("6_1ouyq")]
+player = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("6_x4y8s")
+hframes = 11
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dtsoq")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = 192.0
+offset_right = 128.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_4gh4i")
+
+[node name="Mail1" type="TextureRect" parent="CanvasLayer/Control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 3296.0
+offset_top = 1648.0
+offset_right = 3680.0
+offset_bottom = 2032.0
+texture = ExtResource("6_7w7k8")
+
+[node name="Mail2" type="TextureRect" parent="CanvasLayer/Control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 3280.0
+offset_top = 1632.0
+offset_right = 3664.0
+offset_bottom = 2016.0
+texture = ExtResource("6_7w7k8")
+
+[node name="Mail3" type="TextureRect" parent="CanvasLayer/Control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 3264.0
+offset_top = 1616.0
+offset_right = 3648.0
+offset_bottom = 2000.0
+texture = ExtResource("6_7w7k8")
+
+[node name="Mail4" type="TextureRect" parent="CanvasLayer/Control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 3248.0
+offset_top = 1600.0
+offset_right = 3632.0
+offset_bottom = 1984.0
+texture = ExtResource("6_7w7k8")
+
+[node name="Mail5" type="TextureRect" parent="CanvasLayer/Control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 3232.0
+offset_top = 1584.0
+offset_right = 3616.0
+offset_bottom = 1968.0
+texture = ExtResource("6_7w7k8")
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_3uycc")
+volume_db = 6.618
+
+[node name="Land" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_7g3q1")
+pitch_scale = 1.47
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+width = 1.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 16
+antialiased = true
+script = ExtResource("10_vcg78")
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 1

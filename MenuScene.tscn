@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://jtrk2ieq1ba6"]
+
+[ext_resource type="PackedScene" uid="uid://bn701six60kve" path="res://objectives.tscn" id="1_1js8d"]
+[ext_resource type="PackedScene" uid="uid://bcwtty0f6vam6" path="res://retry.tscn" id="2_13v03"]
+[ext_resource type="Theme" uid="uid://c23xnxlf53rgf" path="res://MenuTheme.tres" id="3_drpgb"]
+[ext_resource type="Script" path="res://Stopwatch.gd" id="3_knf7x"]
+[ext_resource type="AudioStream" uid="uid://cm7pyv5alhks8" path="res://sounds/Matteo_Galesi_Faxel-Hecked_instrumental_2_05.mp3" id="4_e5i1p"]
+[ext_resource type="Script" path="res://AudioStreamPlayer2D.gd" id="6_hauyv"]
+[ext_resource type="PackedScene" uid="uid://cv63g0qbfrl3" path="res://Menus/LevelSelect.tscn" id="7_7sijl"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Objectives" parent="." node_paths=PackedStringArray("level_select") instance=ExtResource("1_1js8d")]
+process_mode = 3
+level_select = NodePath("../LevelSelect")
+
+[node name="RetryScreen" parent="." instance=ExtResource("2_13v03")]
+
+[node name="Stopwatch" type="CanvasLayer" parent="." node_paths=PackedStringArray("menu", "main") groups=["stopwatch"]]
+process_mode = 1
+script = ExtResource("3_knf7x")
+menu = NodePath("../RetryScreen")
+main = NodePath("../Objectives")
+
+[node name="Control" type="Control" parent="Stopwatch"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Stopwatch/Control"]
+process_mode = 3
+stream = ExtResource("4_e5i1p")
+volume_db = -10.769
+autoplay = true
+script = ExtResource("6_hauyv")
+
+[node name="Label" type="Label" parent="Stopwatch/Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 888.0
+offset_top = 40.0
+offset_right = 1088.0
+offset_bottom = 88.0
+theme = ExtResource("3_drpgb")
+theme_override_colors/font_color = Color(1, 0.563591, 0.187726, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.517647, 0.262745, 0.176471, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 2
+theme_override_constants/line_spacing = 8
+theme_override_font_sizes/font_size = 40
+text = "00:00"
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Stopwatch/Control"]
+
+[node name="LevelSelect" parent="." instance=ExtResource("7_7sijl")]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1084.0

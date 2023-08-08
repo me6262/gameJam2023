@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://cw0mybosd815b"]
+
+[ext_resource type="Script" path="res://enemies/gman.gd" id="1_f07yo"]
+[ext_resource type="Texture2D" uid="uid://yh55kl04o1y8" path="res://art/security_guard.png" id="2_rdy2q"]
+[ext_resource type="Script" path="res://states/State Machine.gd" id="3_g24wk"]
+[ext_resource type="Script" path="res://states/Idle.gd" id="4_0x0pf"]
+[ext_resource type="Script" path="res://states/Hostile.gd" id="5_v1trk"]
+[ext_resource type="Script" path="res://enemies/EnemyGunPoint.gd" id="6_aei7b"]
+[ext_resource type="Texture2D" uid="uid://bkpqlvt6wyl2g" path="res://art/shotgun.png" id="7_2ab5m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rws8i"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucy21"]
+size = Vector2(12, 3)
+
+[node name="Gman" type="CharacterBody2D"]
+position = Vector2(708, 422)
+script = ExtResource("1_f07yo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_rdy2q")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rws8i")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_g24wk")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation_player", "enemy", "sprite", "floor_check")]
+script = ExtResource("4_0x0pf")
+animation_player = NodePath("../../AnimationPlayer")
+enemy = NodePath("../..")
+sprite = NodePath("../../Sprite2D")
+floor_check = NodePath("../../RayCast2D")
+
+[node name="Hostile" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "animation_player", "gun")]
+script = ExtResource("5_v1trk")
+enemy = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+gun = NodePath("../../PinJoint2D/Node2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(16, 0)
+scale = Vector2(1.06482, 0.512667)
+target_position = Vector2(0, 76.0728)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(16, 0)
+node_a = NodePath("..")
+node_b = NodePath("Node2D")
+
+[node name="Node2D" type="RigidBody2D" parent="PinJoint2D"]
+position = Vector2(10, 0)
+gravity_scale = -128.0
+script = ExtResource("6_aei7b")
+
+[node name="Sprite2D" type="Sprite2D" parent="PinJoint2D/Node2D"]
+texture_filter = 1
+position = Vector2(16, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_2ab5m")
+hframes = 22
+
+[node name="Timer" type="Timer" parent="PinJoint2D/Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinJoint2D/Node2D"]
+position = Vector2(17, -0.5)
+shape = SubResource("RectangleShape2D_ucy21")

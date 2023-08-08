@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg8ixbdjxk5kb"]
+
+[ext_resource type="Script" path="res://props/KillPlane.gd" id="1_puis8"]
+
+[node name="KillPlane" type="Area2D"]
+script = ExtResource("1_puis8")
+
+[connection signal="body_entered" from="." to="." method="on_body_entered"]

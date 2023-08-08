@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://cs8y38qhscwww"]
+
+[ext_resource type="Script" path="res://mail_projectile.gd" id="1_mapo2"]
+[ext_resource type="Texture2D" uid="uid://b0g5idkk7epa1" path="res://art/mail.png" id="2_pmn6u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10mc0"]
+size = Vector2(20, 10)
+
+[sub_resource type="Gradient" id="Gradient_mpoh7"]
+colors = PackedColorArray(0.241156, 0.241156, 0.241156, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_opmty"]
+gradient = SubResource("Gradient_mpoh7")
+
+[sub_resource type="Gradient" id="Gradient_fvvcv"]
+interpolation_color_space = 2
+colors = PackedColorArray(0.965624, 0.49969, 0.333089, 1, 0.591952, 0, 0.0236306, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d1xex"]
+gradient = SubResource("Gradient_fvvcv")
+
+[sub_resource type="Curve" id="Curve_jr507"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.189024, 55.7895), 0.0, 0.0, 0, 0, Vector2(0.554878, 91.5789), 225.749, 225.749, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_k20e6"]
+curve = SubResource("Curve_jr507")
+
+[sub_resource type="Curve" id="Curve_oh0uy"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4g08a"]
+texture_mode = 1
+curve = SubResource("Curve_oh0uy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yjapi"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 98, 0)
+initial_velocity_max = 148.93
+angular_velocity_min = 45.65
+angular_velocity_max = 720.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = -100.0
+linear_accel_max = 100.0
+damping_min = 3.192
+damping_max = 14.894
+damping_curve = SubResource("CurveTexture_k20e6")
+scale_max = 11.63
+color_ramp = SubResource("GradientTexture1D_d1xex")
+color_initial_ramp = SubResource("GradientTexture1D_opmty")
+hue_variation_curve = SubResource("CurveTexture_4g08a")
+
+[node name="MailProjectile" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 2
+collision_priority = 5.0
+mass = 0.3
+inertia = 1.07
+continuous_cd = 2
+max_contacts_reported = 25
+contact_monitor = true
+script = ExtResource("1_mapo2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_10mc0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
+texture_filter = 1
+texture = ExtResource("2_pmn6u")
+hframes = 4
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1.5, 1.5, 1.5, 1)
+emitting = false
+amount = 43
+process_material = SubResource("ParticleProcessMaterial_yjapi")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+trail_lifetime = 0.05
+trail_sections = 2
+trail_section_subdivisions = 1

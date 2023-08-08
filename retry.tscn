@@ -1,0 +1,194 @@
+[gd_scene load_steps=8 format=3 uid="uid://bcwtty0f6vam6"]
+
+[ext_resource type="Texture2D" uid="uid://bqlyllqee2jeq" path="res://art/transition_bar.png" id="1_2gsmu"]
+[ext_resource type="Script" path="res://retry.gd" id="1_nn7kg"]
+[ext_resource type="Theme" uid="uid://c23xnxlf53rgf" path="res://MenuTheme.tres" id="2_ed4nv"]
+[ext_resource type="Texture2D" uid="uid://dtqqk5lqf8twn" path="res://art/box_button.png" id="3_r7iwo"]
+
+[sub_resource type="Animation" id="Animation_4lc53"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1208, 536)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Button:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1216, 760)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Button2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1096, 472)]
+}
+
+[sub_resource type="Animation" id="Animation_qm8sv"]
+resource_name = "swoop_in"
+length = 2.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.366021, 1),
+"update": 0,
+"values": [Vector2(-1208, 540), Vector2(336, 540)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.466515, 1),
+"update": 0,
+"values": [Vector2(-1208, 120), Vector2(288, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Button2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.9),
+"transitions": PackedFloat32Array(0.277392, 1),
+"update": 0,
+"values": [Vector2(-1096, 472), Vector2(400, 472)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/Button:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.9),
+"transitions": PackedFloat32Array(0.535887, 1),
+"update": 0,
+"values": [Vector2(-1216, 760), Vector2(296, 776)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gnvs6"]
+_data = {
+"RESET": SubResource("Animation_4lc53"),
+"swoop_in": SubResource("Animation_qm8sv")
+}
+
+[node name="RetryScreen" type="CanvasLayer" groups=["allmenu"]]
+process_mode = 3
+layer = 12
+script = ExtResource("1_nn7kg")
+
+[node name="Control" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_gnvs6")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+texture_filter = 1
+position = Vector2(-1208, 536)
+scale = Vector2(15, 15)
+texture = ExtResource("1_2gsmu")
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = -1216.0
+offset_top = 760.0
+offset_right = -1000.0
+offset_bottom = 872.0
+focus_neighbor_top = NodePath("../Button2")
+focus_neighbor_bottom = NodePath("../Button2")
+focus_next = NodePath("../Button2")
+focus_previous = NodePath("../Button2")
+theme = ExtResource("2_ed4nv")
+text = "Main Menu"
+icon = ExtResource("3_r7iwo")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button2" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = -1096.0
+offset_top = 472.0
+offset_right = -728.0
+offset_bottom = 664.0
+focus_neighbor_top = NodePath("../Button")
+focus_neighbor_bottom = NodePath("../Button")
+focus_next = NodePath("../Button")
+focus_previous = NodePath("../Button")
+theme = ExtResource("2_ed4nv")
+theme_override_font_sizes/font_size = 43
+text = "Retry"
+icon = ExtResource("3_r7iwo")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -1208.0
+offset_top = 120.0
+offset_right = -438.0
+offset_bottom = 193.0
+theme = ExtResource("2_ed4nv")
+theme_override_colors/font_color = Color(0.945098, 0.741176, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.682353, 0.368627, 0.701961, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 70
+text = "You Failed!"
+
+[node name="Message" type="Label" parent="Control/Label"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 152.0
+offset_right = 557.0
+offset_bottom = 368.0
+theme = ExtResource("2_ed4nv")
+theme_override_font_sizes/font_size = 29
+text = "Lorem Ipsum blaba"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Control/Button2" to="." method="_on_button_2_pressed"]
