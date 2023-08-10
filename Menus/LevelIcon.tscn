@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Menus/LevelIcon.gd" id="1_hu6xu"]
 
 [node name="LevelIcon" type="Button"]
+process_mode = 3
 texture_filter = 1
 custom_minimum_size = Vector2(256, 256)
 anchors_preset = 15
@@ -15,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fl6ja")
 theme_override_font_sizes/font_size = 45
-text = "0"
+text = "Stuffdjsfsdjkh"
 script = ExtResource("1_hu6xu")
 
 [node name="Label" type="Label" parent="."]
@@ -27,3 +28,5 @@ offset_bottom = 232.0
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

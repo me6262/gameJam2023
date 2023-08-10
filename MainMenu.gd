@@ -12,14 +12,14 @@ var level_index = 0
 @onready var menu: FailScreen = get_tree().get_first_node_in_group("allmenu")
 @export var level_select: Control
 var next_packed_level: PackedScene
-@onready var current_packed_level = level_one
+@onready var current_packed_level: PackedScene = level_one
 var next_level: Level
 var current_level: Level
 
 signal level_starting(level:int)
 signal level_ending
 
-var all_levels_list
+var all_levels_list = DirAccess.get_files_at("res://levels")
 
 # 400, 472
 
@@ -50,7 +50,8 @@ func _on_start_pressed():
 	if current_level != null and not current_level.is_queued_for_deletion():
 		current_level.queue_free()
 	unpacked_player.show()
-	current_packed_level = level_one
+	current_packed_level = load("res://levels/" + all_levels_list[0])
+	level_index = 0
 	current_level = current_packed_level.instantiate()
 	get_tree().root.get_child(0).add_child(current_level)
 	current_level.level_completed.connect(on_level_completed)
@@ -64,21 +65,23 @@ func _on_start_pressed():
 	$quit.button_pressed = false
 	hide()
 
-func on_level_completed(next: PackedScene):
+func on_level_completed():
 	hide()
-	if not next:
+
+	if all_levels_list.size() - 1 < level_index + 1:
+		level_ending.emit()
 		menu.final_level_done()
 		return
 	if menu:
 		level_ending.emit()
 		menu.level_done()
-		await menu.next_level
 		level_index += 1
+		await menu.next_level
 
 	print("complete recieved")
-	current_packed_level = next
+	current_packed_level = load("res://levels/" + all_levels_list[level_index])
 	current_level.queue_free()
-	next_level = next.instantiate()
+	next_level = current_packed_level.instantiate()
 	current_level = next_level
 	current_level.level_failed.connect(on_level_failed)
 	current_level.level_completed.connect(on_level_completed)
@@ -125,5 +128,31 @@ func on_main_menu():
 
 func _on_button_pressed():
 	level_select.show()
-	level_select.grab_focus()
+	level_select.get_node("Button").grab_focus()
+
+func on_level_selected(idx: int):
+	print("level select recieved")
+	if get_tree().paused:
+		get_tree().paused = false
+	if unpacked_player == null:
+		unpacked_player = player.instantiate()
+		get_tree().root.get_child(0).add_child(unpacked_player)
+	if current_level != null and not current_level.is_queued_for_deletion():
+		current_level.queue_free()
+	unpacked_player.show()
+	print(all_levels_list[idx])
+	current_packed_level = load("res://levels/" + all_levels_list[idx])
+	level_index = idx
+	current_level = current_packed_level.instantiate()
+	get_tree().root.get_child(0).add_child(current_level)
+	current_level.level_completed.connect(on_level_completed)
+	current_level.level_failed.connect(on_level_failed)
+	unpacked_player.position = Vector2(80, 500)
+	level_starting.emit(idx)
+	unpacked_player.cam.enabled = true
+	$start.disabled = true
+	$start.button_pressed = false
+	$quit.disabled = true
+	$quit.button_pressed = false
+	hide()
 

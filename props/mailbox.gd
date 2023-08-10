@@ -4,7 +4,7 @@ class_name Mailbox
 
 signal mail_recieved
 
-@export var mail_required = 1
+var mail_required = 1
 var player: CharacterBody2D
 var mail: MailProjectile
 

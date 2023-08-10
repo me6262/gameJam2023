@@ -9,12 +9,20 @@
 [ext_resource type="PackedScene" uid="uid://cv63g0qbfrl3" path="res://Menus/LevelSelect.tscn" id="7_7sijl"]
 
 [node name="Node2D" type="Node2D"]
+texture_filter = 1
 
 [node name="Objectives" parent="." node_paths=PackedStringArray("level_select") instance=ExtResource("1_1js8d")]
 process_mode = 3
 level_select = NodePath("../LevelSelect")
 
+[node name="LevelSelect" parent="." instance=ExtResource("7_7sijl")]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1084.0
+focus_mode = 2
+
 [node name="RetryScreen" parent="." instance=ExtResource("2_13v03")]
+visible = false
 
 [node name="Stopwatch" type="CanvasLayer" parent="." node_paths=PackedStringArray("menu", "main") groups=["stopwatch"]]
 process_mode = 1
@@ -54,9 +62,6 @@ theme_override_constants/line_spacing = 8
 theme_override_font_sizes/font_size = 40
 text = "00:00"
 
-[node name="AudioListener2D" type="AudioListener2D" parent="Stopwatch/Control"]
-
-[node name="LevelSelect" parent="." instance=ExtResource("7_7sijl")]
-visible = false
-offset_right = 1920.0
-offset_bottom = 1084.0
+[connection signal="level_selected" from="LevelSelect" to="Objectives" method="on_level_selected"]
+[connection signal="new_best" from="Stopwatch" to="LevelSelect" method="_on_stopwatch_new_best"]
+[connection signal="new_best" from="Stopwatch" to="RetryScreen" method="_on_stopwatch_new_best"]

@@ -1,8 +1,11 @@
 @tool
 extends Button
 
+signal level_selected(idx: int)
+
 var level_string: String = "stuff"
-var level_scene_string: String
+var level_number: int
+
 var level_time: float = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -13,7 +16,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
-func change_data(level_num: String, time: float, scene_string:String):
+func change_data(level_num: String, time: float):
 	text = level_num
 	$Label.text = str(time)
-	level_scene_string = scene_string
+	level_number = int(level_num) - 1
+
+
+func _on_pressed():
+	print("level button pressed internally")
+	level_selected.emit(level_number)
+	
+

@@ -5,6 +5,7 @@ extends CanvasLayer
 
 signal timing_start
 signal timing_end(time:int)
+signal new_best(time: float, level:int)
 
 var current_level: int
 
@@ -40,9 +41,14 @@ func on_level_finished():
 	menu.message = $Control/Label.text
 	hide()
 	counting = false
+	timing_end.emit()
 	if times.size() >= current_level + 1:
-		times[current_level] = float($Control/Label.text)
+		if times[current_level] > float($Control/Label.text):
+			new_best.emit(float($Control/Label.text), current_level)
+			print("better time")
+			times[current_level] = float($Control/Label.text)
 	else:
+		print("array too small")
 		while times.size() < current_level - 1:
 			times.append(0)
 		times.append(float($Control/Label.text))

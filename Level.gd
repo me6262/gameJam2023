@@ -8,7 +8,7 @@ class_name Level
 
 @onready var player: Player = get_tree().get_first_node_in_group("Player")
 
-signal level_completed(next: PackedScene)
+signal level_completed
 signal level_failed(message: String)
 signal level_started
 

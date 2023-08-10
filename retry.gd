@@ -29,16 +29,19 @@ func _process(delta):
 		$Control/Label/Message.text = ""
 		$Control/Label.text = "Paused"
 		$Control/Button2.text = "Restart"
+		$Control/Label/Best.text = ""
 	elif is_fail_menu:
 		$Control/Label/Message.text = ""
 		$Control/Label.text = "You Failed"
 		$Control/Button2.text = "Retry"
+		$Control/Label/Best.text = ""
 	elif is_next_menu:
 		$Control/Label.text = "Level Completed!"
 		$Control/Button2.text = "Next"
 	elif is_last_menu:
 		$Control/Label.text = "Thanks For Playing!"
 		$Control/Button2.text = "Quit"
+		$Control/Label/Best.text = ""
 
 func level_done():
 	$Control/AnimationPlayer.play("swoop_in")
@@ -49,7 +52,7 @@ func level_done():
 	is_next_menu = true
 	is_pause_menu = false
 	is_fail_menu = false
-	$Control.visible = true
+	visible = true
 	$Control/Button.disabled = false
 	$Control/Button2.disabled = false
 
@@ -63,7 +66,7 @@ func final_level_done():
 	is_pause_menu = false
 	is_fail_menu = false
 	is_last_menu = true
-	$Control.visible = true
+	visible = true
 	$Control/Button.disabled = false
 	$Control/Button2.disabled = false
 
@@ -74,7 +77,7 @@ func fail():
 	is_next_menu = false
 	is_pause_menu = false
 	is_fail_menu = true
-	$Control.visible = true
+	visible = true
 	$Control/AnimationPlayer.play("swoop_in")
 	$Control/Button2.grab_focus()
 	$Control/Button.disabled = false
@@ -90,7 +93,7 @@ func pause():
 		is_next_menu = false
 		is_pause_menu = true
 		is_fail_menu = false
-		$Control.visible = true
+		visible = true
 		$Control/AnimationPlayer.play("swoop_in")
 		$Control/Button2.grab_focus()
 		await $Control/AnimationPlayer.animation_finished
@@ -100,7 +103,7 @@ func pause():
 		$Control/AnimationPlayer.play_backwards("swoop_in")
 		await $Control/AnimationPlayer.animation_finished
 		get_tree().paused = false
-		$Control.visible = false
+		visible = false
 		paused = false
 
 
@@ -126,13 +129,13 @@ func _on_button_2_pressed():
 
 func on_anim_finsihed_menu(_anim_name):
 		$Control/AnimationPlayer.disconnect("animation_finished", on_anim_finsihed_menu)
-		$Control.visible = false
+		visible = false
 		get_tree().paused = true
 		main_menu.emit()
 		print("main_menu")
 
 func on_anim_finsihed_retry(_anim_name):
-		$Control.visible = false
+		visible = false
 		get_tree().paused = false
 		if is_fail_menu or is_pause_menu:
 
@@ -143,6 +146,16 @@ func on_anim_finsihed_retry(_anim_name):
 			print("next level")
 			$Control/AnimationPlayer.disconnect("animation_finished", on_anim_finsihed_retry)
 			next_level.emit()
+			$Control/Label/Label.text = ""
 		elif is_last_menu:
-			get_tree().quit()
+			$Control/AnimationPlayer.disconnect("animation_finished", on_anim_finsihed_retry)
+			visible = false
+			get_tree().paused = true
+			main_menu.emit()
+			print("main_menu")
+
+
+func _on_stopwatch_new_best(_time: float):
+	print("new best")
+	$Control/Label/Best.text = "New Best!"
 
