@@ -8,9 +8,9 @@ godot --headless --export-release "Windows" .release/win/MailmanMarty-win.exe
 echo "Releasing Linux"
 godot --headless --export-release "Linux/X11" .release/linux/MailmanMarty-linux
 echo "Releasing Mac"
-godot --headless --export-release "macOS" .release/win/MailmanMarty-mac.zip
+godot --headless --export-release "macOS" .release/mac/MailmanMarty-mac.zip
 echo "Releasing Web"
-godot --headless --export-release "Web" .release/win/MailmanMarty-web.zip
+godot --headless --export-release "Web" .release/web/index.html
 
 # butler push .release/win/MailmanMarty-win.exe hayd6262/mailman-marty:windows-release --userversion $1
 # butler push .release/linux/MailmanMarty-linux hayd6262/mailman-marty:linux-release --userversion $1

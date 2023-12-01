@@ -22,9 +22,11 @@ func _ready():
 	main.level_starting.connect(on_level_start)
 	main.level_ending.connect(on_level_finished)
 	menu.retrying.connect(on_level_restart)
-	file = FileAccess.open("user://leaderboard.dat", FileAccess.READ)
-	times = file.get_var(true) 
-	print(times)
+	if OS.get_name() != "Web":
+
+		file = FileAccess.open("user://leaderboard.dat", FileAccess.READ)
+		times = file.get_var(true) 
+		print(times)
 	
 	
 
@@ -69,5 +71,7 @@ func on_level_restart():
 
 	
 func _exit_tree():
-	var writer = FileAccess.open("user://leaderboard.dat", FileAccess.WRITE)
-	writer.store_var(times)
+	if OS.get_name() != "Web":
+
+		var writer = FileAccess.open("user://leaderboard.dat", FileAccess.WRITE)
+		writer.store_var(times)

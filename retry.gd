@@ -146,7 +146,7 @@ func on_anim_finsihed_retry(_anim_name):
 			print("next level")
 			$Control/AnimationPlayer.disconnect("animation_finished", on_anim_finsihed_retry)
 			next_level.emit()
-			$Control/Label/Label.text = ""
+			$Control/Label/Best.text = ""
 		elif is_last_menu:
 			$Control/AnimationPlayer.disconnect("animation_finished", on_anim_finsihed_retry)
 			visible = false
@@ -155,7 +155,7 @@ func on_anim_finsihed_retry(_anim_name):
 			print("main_menu")
 
 
-func _on_stopwatch_new_best(_time: float):
+func _on_stopwatch_new_best(_time: float, _level):
 	print("new best")
 	$Control/Label/Best.text = "New Best!"
 

@@ -3,26 +3,31 @@ extends Control
 
 signal level_selected(idx: int)
 
+@onready var current_vbox = $VBoxContainer
 var first_run = true
 var level_folder = "res://levels"
 var level_icons: PackedScene = preload("res://Menus/LevelIcon.tscn")
-@onready var dir = DirAccess.get_files_at(level_folder)
-@onready var folder_size = dir.size()
+var dirs
+var dir
 @onready var current_layer:HBoxContainer
 var times = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("bruh")
-	script_changed.connect(on_script_changed)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	if OS.get_name() != "Web":
+		script_changed.connect(on_script_changed)
+# Called every frame. 'delta' is the
 func _process(_delta):
-	if DirAccess.get_files_at(level_folder).size() == dir.size() and not first_run:
+	if not first_run:
 		return
+	if OS.get_name() == "Web":
+		times = [0, 0, 0, 0, 0, 0]
 	var i = 0
-	if times.size() <= 0:
+	if times.size() <= 0 and OS.get_name() != "Web":
 		times = FileAccess.open("user://leaderboard.dat", FileAccess.READ).get_var(true)
 	
-	dir = DirAccess.get_files_at(level_folder)
+	dirs = DirAccess.get_directories_at(level_folder)
+	dir = DirAccess.get_files_at()
 	current_layer = HBoxContainer.new()
 	current_layer.add_spacer(true)
 	$VBoxContainer.add_child(current_layer)

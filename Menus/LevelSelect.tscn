@@ -48,11 +48,11 @@ offset_bottom = 75.0
 theme_override_font_sizes/font_size = 40
 text = "back"
 
-[connection signal="pressed" from="VBoxContainer/@HBoxContainer@23344/LevelIcon" to="VBoxContainer/@HBoxContainer@23344/LevelIcon" method="_on_pressed" flags=18]
-[connection signal="pressed" from="VBoxContainer/@HBoxContainer@23344/@Button@23346" to="VBoxContainer/@HBoxContainer@23344/@Button@23346" method="_on_pressed" flags=18]
-[connection signal="pressed" from="VBoxContainer/@HBoxContainer@23344/@Button@23348" to="VBoxContainer/@HBoxContainer@23344/@Button@23348" method="_on_pressed" flags=18]
-[connection signal="pressed" from="VBoxContainer/@HBoxContainer@23344/@Button@23350" to="VBoxContainer/@HBoxContainer@23344/@Button@23350" method="_on_pressed" flags=18]
-[connection signal="pressed" from="VBoxContainer/@HBoxContainer@23354/LevelIcon" to="VBoxContainer/@HBoxContainer@23354/LevelIcon" method="_on_pressed" flags=18]
-[connection signal="pressed" from="VBoxContainer/@HBoxContainer@23354/@Button@23356" to="VBoxContainer/@HBoxContainer@23354/@Button@23356" method="_on_pressed" flags=18]
-[connection signal="pressed" from="VBoxContainer/@HBoxContainer@23354/@Button@23358" to="VBoxContainer/@HBoxContainer@23354/@Button@23358" method="_on_pressed" flags=18]
+[connection signal="pressed" from="VBoxContainer/@HBoxContainer@25837/LevelIcon" to="VBoxContainer/@HBoxContainer@25837/LevelIcon" method="_on_pressed" flags=18]
+[connection signal="pressed" from="VBoxContainer/@HBoxContainer@25837/@Button@25839" to="VBoxContainer/@HBoxContainer@25837/@Button@25839" method="_on_pressed" flags=18]
+[connection signal="pressed" from="VBoxContainer/@HBoxContainer@25837/@Button@25841" to="VBoxContainer/@HBoxContainer@25837/@Button@25841" method="_on_pressed" flags=18]
+[connection signal="pressed" from="VBoxContainer/@HBoxContainer@25837/@Button@25843" to="VBoxContainer/@HBoxContainer@25837/@Button@25843" method="_on_pressed" flags=18]
+[connection signal="pressed" from="VBoxContainer/@HBoxContainer@25847/LevelIcon" to="VBoxContainer/@HBoxContainer@25847/LevelIcon" method="_on_pressed" flags=18]
+[connection signal="pressed" from="VBoxContainer/@HBoxContainer@25847/@Button@25849" to="VBoxContainer/@HBoxContainer@25847/@Button@25849" method="_on_pressed" flags=18]
+[connection signal="pressed" from="VBoxContainer/@HBoxContainer@25847/@Button@25851" to="VBoxContainer/@HBoxContainer@25847/@Button@25851" method="_on_pressed" flags=18]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
