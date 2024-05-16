@@ -23,11 +23,11 @@ func _process(_delta):
 	if OS.get_name() == "Web":
 		times = [0, 0, 0, 0, 0, 0]
 	var i = 0
-	if times.size() <= 0 and OS.get_name() != "Web":
+	if times.size() <= 0 and OS.get_name() != "Web" and false:
 		times = FileAccess.open("user://leaderboard.dat", FileAccess.READ).get_var(true)
 	
 	dirs = DirAccess.get_directories_at(level_folder)
-	dir = DirAccess.get_files_at()
+	dir = DirAccess.get_files_at("res://levels/")
 	current_layer = HBoxContainer.new()
 	current_layer.add_spacer(true)
 	$VBoxContainer.add_child(current_layer)

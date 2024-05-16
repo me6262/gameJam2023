@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dsn8dfy6orwdl"]
 
 [ext_resource type="Script" path="res://script_templates/Level/LevelOne.gd" id="1_41qjg"]
-[ext_resource type="PackedScene" uid="uid://cxrauvje1ovvb" path="res://levels/World1/Level6.tscn" id="2_xjxsr"]
+[ext_resource type="PackedScene" uid="uid://cxrauvje1ovvb" path="res://levels/Level6.tscn" id="2_xjxsr"]
 [ext_resource type="PackedScene" uid="uid://csglutxnifo1o" path="res://parallax_background.tscn" id="3_7hnf1"]
 [ext_resource type="TileSet" uid="uid://bq85leathflgg" path="res://tilemap.tres" id="4_xt16a"]
 [ext_resource type="PackedScene" uid="uid://bg8ixbdjxk5kb" path="res://props/kill_plane.tscn" id="5_dyt3c"]

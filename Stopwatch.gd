@@ -22,7 +22,7 @@ func _ready():
 	main.level_starting.connect(on_level_start)
 	main.level_ending.connect(on_level_finished)
 	menu.retrying.connect(on_level_restart)
-	if OS.get_name() != "Web":
+	if OS.get_name() != "Web" and false:
 
 		file = FileAccess.open("user://leaderboard.dat", FileAccess.READ)
 		times = file.get_var(true) 

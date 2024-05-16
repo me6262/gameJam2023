@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://t60orl3rvp8k"]
 
 [ext_resource type="Script" path="res://script_templates/Level/LevelOne.gd" id="1_d2p3i"]
-[ext_resource type="PackedScene" uid="uid://duv1qex1ipfre" path="res://levels/World1/Level4.tscn" id="2_i0yb4"]
+[ext_resource type="PackedScene" uid="uid://duv1qex1ipfre" path="res://levels/Level4.tscn" id="2_i0yb4"]
 [ext_resource type="PackedScene" uid="uid://csglutxnifo1o" path="res://parallax_background.tscn" id="3_56ba6"]
 [ext_resource type="TileSet" uid="uid://bq85leathflgg" path="res://tilemap.tres" id="4_5hbpm"]
 [ext_resource type="PackedScene" uid="uid://dyb3hm221tvwf" path="res://enemies/alien.tscn" id="5_i1u0b"]

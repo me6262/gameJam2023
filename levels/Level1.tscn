@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://ckp41o16g5p8k"]
 
 [ext_resource type="Script" path="res://script_templates/Level/LevelOne.gd" id="1_86uls"]
-[ext_resource type="PackedScene" uid="uid://csdopb0vodywn" path="res://levels/World1/Level2.tscn" id="2_sxtob"]
+[ext_resource type="PackedScene" uid="uid://csdopb0vodywn" path="res://levels/Level2.tscn" id="2_sxtob"]
 [ext_resource type="TileSet" uid="uid://bq85leathflgg" path="res://tilemap.tres" id="3_4tvvq"]
 [ext_resource type="PackedScene" uid="uid://csglutxnifo1o" path="res://parallax_background.tscn" id="4_nq3kc"]
 [ext_resource type="PackedScene" uid="uid://cktu8bfaguocq" path="res://props/mailbox.tscn" id="5_1ml7e"]
